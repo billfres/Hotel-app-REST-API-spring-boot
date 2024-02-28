@@ -26,7 +26,8 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:5173");
+        //config.addAllowedOrigin("http://localhost:5173");https://leafy-faloodeh-d858b8.netlify.app/
+        config.addAllowedOrigin("https://leafy-faloodeh-d858b8.netlify.app");
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.AUTHORIZATION,
                 HttpHeaders.CONTENT_TYPE,
