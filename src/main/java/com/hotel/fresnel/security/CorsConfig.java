@@ -10,6 +10,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -27,7 +28,11 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         //config.addAllowedOrigin("http://localhost:5173");https://fresnelapp.netlify.app/
-        config.addAllowedOrigin("*");
+       // config.addAllowedOrigin("*");
+        config.setAllowedOrigins(Arrays.asList(
+                "https://fresnelapp.netlify.app",
+                "http://localhost:5173"
+        ));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.AUTHORIZATION,
                 HttpHeaders.CONTENT_TYPE,
