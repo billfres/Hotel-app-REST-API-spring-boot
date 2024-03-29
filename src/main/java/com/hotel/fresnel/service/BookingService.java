@@ -17,7 +17,7 @@ import java.util.List;
 public class BookingService implements IBookingService {
     private final BookingRepository bookingRepository;
     private final IRoomService roomService;
-
+    private final NotificationService notificationService;
 
     @Override
     public List<BookedRoom> getAllBookings() {
@@ -50,10 +50,14 @@ public class BookingService implements IBookingService {
         boolean roomIsAvailable = roomIsAvailable(bookingRequest,existingBookings);
         if (roomIsAvailable){
             room.addBooking(bookingRequest);
+            System.out.println(bookingRequest.getGuestEmail());
+            System.out.println(bookingRequest.getBookingConfirmationCode());
+            notificationService.envoyerCodeReservation(bookingRequest.getGuestEmail(),bookingRequest.getBookingConfirmationCode());
             bookingRepository.save(bookingRequest);
         }else{
             throw  new InvalidBookingRequestException("Sorry, This room is not available for the selected dates;");
         }
+
         return bookingRequest.getBookingConfirmationCode();
     }
 

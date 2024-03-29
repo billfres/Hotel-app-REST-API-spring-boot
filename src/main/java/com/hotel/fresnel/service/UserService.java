@@ -37,6 +37,18 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User saveUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())){
+            throw new UserAlreadyExistsException(user.getEmail() + " already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println(user.getPassword());
+        Role userRole = roleRepository.findByName("ROLE_ADMIN").get();
+        user.setRoles(Collections.singletonList(userRole));
+        return userRepository.save(user);
+    }
+
+    @Override
     public List<User> getUsers() {
         return userRepository.findAll();
     }
